@@ -44,6 +44,12 @@ public class progressview extends View {
     private int mWidth=dipToPx(250);
 
     private int  mHeight=dipToPx(52);
+
+
+    private int  round=dipToPx(6);// 宽度的一半
+
+    private int  textSpace=dipToPx(20); //进度条上下的距离
+
     // 画笔
     private Paint mPaint = new Paint();
 
@@ -67,7 +73,7 @@ public class progressview extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        canvas.translate(0,50);
+//        canvas.translate(0,textSpace);
 //        canvas.translate(mWidth / 2, mHeight / 2);  // 将话不移动中心
 //
 //
@@ -79,33 +85,236 @@ public class progressview extends View {
 //
 //        RectF rect = new RectF(100, 10, 300, 100);
 //        canvas.drawRoundRect(rect, 20, 10, paint);
-
-
         mPaint=new Paint();
         mPaint.setAntiAlias(true);
-        int round=currentheight/2;
-        mPaint.setColor(Color.WHITE);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(1);
+        mPaint.setColor(Color.GRAY);
 
-        RectF rectbg=new RectF(0,50,mWidth,mHeight-50);
-
+        RectF rectbg=new RectF(0,textSpace,mWidth,mHeight-textSpace);
         // 背景进度条
         canvas.drawRoundRect(rectbg,round,round,mPaint);
-
    //     mPaint.setColor(Color.TRANSPARENT);
-
-        RectF rectBlackbg=new RectF(2,2+50,mWidth-2,mHeight-2-50);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.WHITE);
+        RectF rectBlackbg=new RectF(2,2+textSpace,mWidth-2,mHeight-2-textSpace);
 
         canvas.drawRoundRect(rectBlackbg,round,round,mPaint);
+
+
+        //先搞一个框
+
+
+
+           if(mode==1){ //单条线 先划线
+               float section1=singleLineNumber/maxCount;
+               float progressSection1=currentCount/maxCount;
+               Paint paint=new Paint();
+               if(progressSection1<section1){
+                   //只用一种渐变浅蓝遍深蓝
+
+                   int[] colors=new int[2];
+                   colors[0]=blueStart;
+                   colors[1]=blueEnd;
+
+
+                    float [] positions=new float[2];
+                   positions[0]=0f;
+                   positions[1]=1f;
+
+                   RectF rectProgressbg=new RectF(3,3+textSpace,(mWidth-3)*progressSection1,mHeight-3-textSpace);
+
+                   LinearGradient shader = new LinearGradient(3, 3+textSpace, (mWidth-3)*progressSection1, mHeight-3-textSpace, colors,positions, Shader.TileMode.MIRROR);
+                   mPaint.setShader(shader);
+
+
+                   canvas.drawRoundRect(rectProgressbg, round, round, mPaint);
+
+                   paint.setColor(Color.parseColor("#1d99f1"));  //设置画笔颜色
+
+                   // 画字
+                   //写文字
+
+                   Paint fontPaint=new Paint();
+
+
+                   //画上面的字体
+                   fontPaint.setColor(Color.parseColor("#1d99f1"));
+                   fontPaint.setTextSize(sp2px(getContext(),14)); //以px为单位14 sp 转 像素
+                   canvas.drawText(singleLineNumber+"", (mWidth-3)*section1-sp2px(getContext(),14), dipToPx(15), fontPaint); // 字体坐标
+                 //画下面的字体、
+                   canvas.drawText(currentCount+"", (mWidth-3)*progressSection1-sp2px(getContext(),14),  mHeight-3-textSpace+dipToPx(15), fontPaint); // 字体坐标
+
+
+
+               }else{
+
+
+
+                   int[] colors=new int[4];
+                   colors[0]=blueStart;
+                   colors[1]=blueEnd;
+                   colors[2]=orangeStart;
+                   colors[3]=orangeEnd;
+
+                   float [] positions=new float[4];
+                   positions[0]=0f;
+                   positions[1]=section1;
+                   positions[2]=section1;
+                   positions[3]=1f;
+
+                   RectF rectProgressbg=new RectF(3,3+textSpace,(mWidth-3)*progressSection1,mHeight-3-textSpace); //100%
+
+                   LinearGradient shader = new LinearGradient(3, 3+textSpace, (mWidth-3)*progressSection1, mHeight-3-textSpace, colors,positions, Shader.TileMode.MIRROR);
+                   mPaint.setShader(shader);
+
+                   canvas.drawRoundRect(rectProgressbg, round, round, mPaint);
+
+                   paint.setColor(Color.WHITE);  //设置画笔颜色
+
+
+
+
+
+
+                   Paint fontPaint=new Paint();
+
+
+                   //画上面的字体
+                   fontPaint.setColor(Color.parseColor("#1d99f1"));
+                   fontPaint.setTextSize(sp2px(getContext(),14)); //以px为单位14 sp 转 像素
+                   canvas.drawText(singleLineNumber+"", (mWidth-3)*section1-sp2px(getContext(),14), dipToPx(15), fontPaint); // 字体坐标
+                   //画下面的字体、
+
+                   fontPaint.setColor(Color.parseColor("#ef5b3b"));
+                   canvas.drawText(currentCount+"", (mWidth-3)*progressSection1-sp2px(getContext(),14),  mHeight-3-textSpace+dipToPx(15), fontPaint); // 字体坐标
+
+
+
+
+
+
+
+
+
+
+
+
+               }
+
+
+
+
+
+
+
+//               paint.setColor(Color.BLUE);  //设置画笔颜色
+               paint.setStyle(Paint.Style.FILL);//设置填充样式
+               paint.setStrokeWidth(2);//设置画笔宽度
+               canvas.drawLine((mWidth-3)*section1, textSpace, (mWidth-3)*section1, mHeight-3-textSpace, paint);
+
+
+
+           }else{//多条线
+
+               //确定三个百分比
+               Paint paint=new Paint();
+               float firstSection=firstNumber/maxCount;
+               float secondSection=secondNumber/maxCount;
+               float progressSection=currentCount/maxCount;
+
+               if(progressSection<secondSection){
+
+                   //只用一种渐变浅蓝遍深蓝
+
+                   int[] colors=new int[2];
+                   colors[0]=blueStart;
+                   colors[1]=blueEnd;
+
+
+                   float [] positions=new float[2];
+                   positions[0]=0f;
+                   positions[1]=1f;
+
+                   RectF rectProgressbg=new RectF(3,3+textSpace,(mWidth-3)*progressSection,mHeight-3-textSpace);
+
+                   LinearGradient shader = new LinearGradient(3, 3+textSpace, (mWidth-3)*progressSection, mHeight-3-textSpace, colors,positions, Shader.TileMode.MIRROR);
+                   mPaint.setShader(shader);
+
+
+                   canvas.drawRoundRect(rectProgressbg, round, round, mPaint);
+
+                   paint.setColor(Color.parseColor("#1d99f1"));  //设置画笔颜色
+
+                   // 画字
+                   //写文字
+
+                   Paint fontPaint=new Paint();
+
+
+                   //画上面的字体
+                   fontPaint.setColor(Color.parseColor("#1d99f1"));
+                   fontPaint.setTextSize(sp2px(getContext(),14)); //以px为单位14 sp 转 像素
+                   canvas.drawText(firstNumber+"", (mWidth-3)*firstSection-sp2px(getContext(),14), dipToPx(15), fontPaint); // 字体坐标
+                   canvas.drawText(secondNumber+"", (mWidth-3)*secondSection-sp2px(getContext(),14), dipToPx(15), fontPaint); // 字体坐标
+
+                   //画下面的字体、
+                   canvas.drawText(currentCount+"", (mWidth-3)*progressSection-sp2px(getContext(),14),  mHeight-3-textSpace+dipToPx(15), fontPaint); // 字体坐标
+
+
+
+
+               }else{
+
+
+
+
+
+               }
+
+
+
+               // 华淑娴
+               paint.setColor(Color.WHITE);
+               paint.setStyle(Paint.Style.FILL);//设置填充样式
+               paint.setStrokeWidth(2);//设置画笔宽度
+               canvas.drawLine((mWidth-3)*firstSection, textSpace, (mWidth-3)*firstSection, mHeight-3-textSpace, paint);
+               paint.setColor(Color.parseColor("#1d99f1"));
+
+               canvas.drawLine((mWidth-3)*secondSection, textSpace, (mWidth-3)*secondSection, mHeight-3-textSpace, paint);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           }
 
 
 
         // float其中的一个比例 话
        // float section=currentCount/maxCount;
-        float section1=0.6f;
-        float section2=0.8f;
-           //先搞一个框
 
-        RectF rectProgressbg=new RectF(3,3+50,(mWidth-3)*section1,mHeight-3-50);
 
 //        if(section1<=0.5f){
 //
@@ -151,40 +360,40 @@ public class progressview extends View {
 //
 //
 //        }
-
-
-
-        LinearGradient shader = new LinearGradient(3, 3+50, (mWidth-3)*section1, mHeight-3-50, SECTION_COLORS,null, Shader.TileMode.MIRROR);
-        mPaint.setShader(shader);
-
-
-        canvas.drawRoundRect(rectProgressbg, round, round, mPaint);
-
-
-
-        Paint paint=new Paint();
-        paint.setColor(Color.WHITE);  //设置画笔颜色
-        paint.setStyle(Paint.Style.FILL);//设置填充样式
-        paint.setStrokeWidth(5);//设置画笔宽度
-
 //
-//        float section1=0.6f;
-//        float section2=0.8f;
-
-        canvas.drawLine((mWidth-3)*0.45f, 50, (mWidth-3)*0.45f, mHeight-3-50, paint);
-
-        paint.setColor(Color.RED);
-
-        canvas.drawLine((mWidth-3)*section2, 50, (mWidth-3)*section2, mHeight-3-50, paint);
-
-        //写文字
-        paint.setColor(Color.GREEN);
-        paint.setTextSize(28); //以px为单位14 sp 转 像素
-        canvas.drawText("25", (mWidth-3)*0.45f-14, 30, paint); // 字体坐标
-
-        paint.setColor(Color.RED);
-        paint.setTextSize(28); //以px为单位14 sp 转 像素
-        canvas.drawText("1805", (mWidth-3)*section2-28,  mHeight-3-50+30, paint); // 字体坐标
+//
+//
+//        LinearGradient shader = new LinearGradient(3, 3+textSpace, (mWidth-3)*section1, mHeight-3-textSpace, SECTION_COLORS,null, Shader.TileMode.MIRROR);
+//        mPaint.setShader(shader);
+//
+//
+//        canvas.drawRoundRect(rectProgressbg, round, round, mPaint);
+//
+//
+//
+//        Paint paint=new Paint();
+//        paint.setColor(Color.WHITE);  //设置画笔颜色
+//        paint.setStyle(Paint.Style.FILL);//设置填充样式
+//        paint.setStrokeWidth(5);//设置画笔宽度
+//
+////
+////        float section1=0.6f;
+////        float section2=0.8f;
+//
+//        canvas.drawLine((mWidth-3)*0.45f, textSpace, (mWidth-3)*0.45f, mHeight-3-textSpace, paint);
+//
+//        paint.setColor(Color.RED);
+//
+//        canvas.drawLine((mWidth-3)*section2, textSpace, (mWidth-3)*section2, mHeight-3-textSpace, paint);
+//
+//        //写文字
+//        paint.setColor(Color.GREEN);
+//        paint.setTextSize(28); //以px为单位14 sp 转 像素
+//        canvas.drawText("25", (mWidth-3)*0.45f-14, 30, paint); // 字体坐标
+//
+//        paint.setColor(Color.RED);
+//        paint.setTextSize(28); //以px为单位14 sp 转 像素
+//        canvas.drawText("1805", (mWidth-3)*section2-28,  mHeight-3-textSpace+30, paint); // 字体坐标
     }
 
 
@@ -254,7 +463,7 @@ public class progressview extends View {
             mWidth = 0;
         }
         if (heightSpecMode == MeasureSpec.AT_MOST || heightSpecMode == MeasureSpec.UNSPECIFIED) {
-            mHeight = dipToPx(15);
+            mHeight = dipToPx(52);
         } else {
             mHeight = heightSpecSize;
         }

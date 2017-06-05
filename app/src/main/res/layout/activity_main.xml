@@ -9,13 +9,29 @@
 
 
 <com.example.administrator.customview.View.progressview
+    android:id="@+id/progreess_1"
     android:layout_height="52dp"
     android:layout_width="250dp"
    android:layout_marginTop="60dp"
-    android:layout_centerVertical="true"
+
     />
 
+    <com.example.administrator.customview.View.progressview
+        android:layout_below="@+id/progreess_1"
+        android:id="@+id/progreess_2"
+        android:layout_height="52dp"
+        android:layout_width="250dp"
+        android:layout_marginTop="60dp"
 
+        />
+    <com.example.administrator.customview.View.progressview
+        android:layout_below="@+id/progreess_2"
+        android:id="@+id/progreess_3"
+        android:layout_height="52dp"
+        android:layout_width="250dp"
+        android:layout_marginTop="60dp"
+
+        />
 
 
 </RelativeLayout>
