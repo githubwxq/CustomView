@@ -11,11 +11,13 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.wxq.view.CustomView;
+
 /**
  * Created by Administrator on 2017/6/5.
  */
 
-public class progressview extends View {
+public class progressview extends CustomView {
 
     // 上下字体为宽250个dp默认
     //     固定 上下40px  20dp 中间进度条24像素 12dp
