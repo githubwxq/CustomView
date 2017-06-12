@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
 progressview  progreess_1;
     progressview  progreess_2;
 
-    progressview  progreess_3;
+    progressview  progreess_3;  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
