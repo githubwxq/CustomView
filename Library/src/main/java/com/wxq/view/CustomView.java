@@ -57,7 +57,7 @@ public class CustomView extends View {
         this.defaultSize = defaultSize;
     }
 
-    public  int defaultSize=450; //默认当为wrapcontent的时候给的默认值
+    public  int defaultSize=250; //默认当为wrapcontent的时候给的默认值
     
     
 
