@@ -97,8 +97,18 @@ public class BaseView extends CustomView {
         canvas.drawCircle(200, 200, 200, paint);
 
 
+        // 画字
+        Paint textPaint = new Paint();          // 创建画笔
+        textPaint.setColor(Color.BLACK);        // 设置颜色
+        textPaint.setStyle(Paint.Style.FILL);   // 设置样式
+        textPaint.setTextSize(50);              // 设置字体大小
 
 
+        // 文本(要绘制的内容)
+        String str = "ABCDEFGHIJK";
+
+        // 参数分别为 (文本 基线x 基线y 画笔)
+        canvas.drawText(str,200,500,textPaint);
 
     }
 }
