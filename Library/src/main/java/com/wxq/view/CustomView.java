@@ -20,6 +20,7 @@
 package com.wxq.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -76,6 +77,9 @@ public class CustomView extends View {
     }
 
     public void initView() {
+        mDeafultPaint.setStyle(Paint.Style.STROKE);
+        mDeafultPaint.setColor(Color.GREEN);
+
     }
 
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 
 import com.wxq.view.CustomView;
@@ -97,18 +99,50 @@ public class BaseView extends CustomView {
         canvas.drawCircle(200, 200, 200, paint);
 
 
-        // 画字
-        Paint textPaint = new Paint();          // 创建画笔
-        textPaint.setColor(Color.BLACK);        // 设置颜色
-        textPaint.setStyle(Paint.Style.FILL);   // 设置样式
-        textPaint.setTextSize(50);              // 设置字体大小
+//        // 画字
+//        Paint textPaint = new Paint();          // 创建画笔
+//        textPaint.setColor(Color.BLACK);        // 设置颜色
+//        textPaint.setStyle(Paint.Style.FILL);   // 设置样式
+//        textPaint.setTextSize(50);              // 设置字体大小
+//
+//
+//        // 文本(要绘制的内容)
+//        String str = "ABCDEFGHIJK";
+//
+//        // 参数分别为 (文本 基线x 基线y 画笔)
+//        canvas.drawText(str,200,500,textPaint);
+
+       canvas.translate(mViewWidth/2,mViewHeight/2);
+//        canvas.scale(1,-1);
+        Path path=new Path();
+        Path src=new Path();
+
+        path.addRect(-200,-200,200,200,Path.Direction.CW);
+
+        src.addCircle(0,0,100,Path.Direction.CW);
+
+        path.addPath(src,0,100);
+
+        mPaint1.setColor(Color.GREEN);
+        mPaint1.setStyle(Paint.Style.STROKE);
+          canvas.drawPath(path,mPaint1);
 
 
-        // 文本(要绘制的内容)
-        String str = "ABCDEFGHIJK";
+        Path path1=new Path();
 
-        // 参数分别为 (文本 基线x 基线y 画笔)
-        canvas.drawText(str,200,500,textPaint);
+        path1.lineTo(100,100);
+
+        RectF rectF=new RectF(0,0,300,300);
+
+//        path1.addArc(rectF,0,255);
+        path1.arcTo(rectF,0,255);
+
+        canvas.drawPath(path1,mPaint1);
+
+
+
+
+
 
     }
 }

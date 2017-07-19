@@ -4,30 +4,101 @@
     android:id="@+id/activity_base_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.administrator.customview.baseViewActivity">
-<com.example.administrator.customview.View.BaseView
-    android:id="@+id/aa"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    />
+
+    <com.example.administrator.customview.View.BaseView
+        android:id="@+id/aa"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
 
     <com.example.administrator.customview.View.PieView
         android:id="@+id/pv"
-        android:layout_below="@+id/aa"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
         android:visibility="gone"
-        />
+        android:layout_height="300dp"
+        android:layout_below="@+id/aa"
+        android:layout_marginLeft="150dp"
+     />
 
 
     <com.example.administrator.customview.View.CanvasBaseView
-        android:layout_toRightOf="@+id/pv"
-        android:layout_below="@+id/aa"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        />
+        android:layout_below="@+id/aa"
+        android:layout_toRightOf="@+id/pv"
 
+        android:visibility="gone" />
+
+
+    <com.example.administrator.customview.View.RadarView
+        android:id="@+id/rv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/aa"
+        android:visibility="gone"
+        android:background="@color/colorAccent" />
+
+
+    <com.example.administrator.customview.View.Bezier3
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        android:layout_below="@+id/rv"
+        android:background="@color/colorAccent" />
+
+
+    <com.example.administrator.customview.View.Bezier2
+        android:layout_width="150dp"
+        android:id="@+id/vb"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        android:layout_below="@+id/rv"
+        android:layout_marginLeft="200dp"
+        android:background="@color/colorAccent" />
+
+
+<com.example.administrator.customview.View.PathOpView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+        android:visibility="gone"
+        android:background="@color/colorAccent" />
+
+
+
+    <com.example.administrator.customview.View.SearchView
+
+        android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+       android:visibility="gone"
+        android:background="@color/colorAccent" />
+
+    <com.example.administrator.customview.View.PorterDuffView
+android:visibility="gone"
+        android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+/>
+    <com.example.administrator.customview.View.LogoLoadingView
+
+        android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_below="@+id/vb"
+/>
+
+
+    <com.example.administrator.customview.View.CircleImageView
+
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:imageRes="@mipmap/ic_launcher"
+        android:layout_below="@+id/vb"
+        />
 
 
 
