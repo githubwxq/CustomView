@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_base_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.administrator.customview.baseViewActivity">
 
     <com.example.administrator.customview.View.BaseView
         android:id="@+id/aa"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="150dp"
+        android:visibility="gone" />
 
     <com.example.administrator.customview.View.PieView
         android:id="@+id/pv"
         android:layout_width="150dp"
-        android:visibility="gone"
         android:layout_height="300dp"
         android:layout_below="@+id/aa"
         android:layout_marginLeft="150dp"
-     />
+        android:visibility="gone" />
 
 
     <com.example.administrator.customview.View.CanvasBaseView
@@ -37,74 +36,124 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_below="@+id/aa"
-        android:visibility="gone"
-        android:background="@color/colorAccent" />
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
 
 
     <com.example.administrator.customview.View.Bezier3
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:visibility="gone"
         android:layout_below="@+id/rv"
-        android:background="@color/colorAccent" />
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
 
 
     <com.example.administrator.customview.View.Bezier2
-        android:layout_width="150dp"
         android:id="@+id/vb"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        android:visibility="gone"
         android:layout_below="@+id/rv"
         android:layout_marginLeft="200dp"
-        android:background="@color/colorAccent" />
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
 
 
-<com.example.administrator.customview.View.PathOpView
+    <com.example.administrator.customview.View.PathOpView
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/vb"
-        android:visibility="gone"
-        android:background="@color/colorAccent" />
-
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
 
 
     <com.example.administrator.customview.View.SearchView
 
         android:layout_width="match_parent"
-       android:layout_height="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/vb"
-       android:visibility="gone"
-        android:background="@color/colorAccent" />
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
 
     <com.example.administrator.customview.View.PorterDuffView
-android:visibility="gone"
         android:layout_width="match_parent"
-       android:layout_height="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/vb"
-/>
+        android:visibility="gone" />
+
     <com.example.administrator.customview.View.LogoLoadingView
 
         android:layout_width="match_parent"
-       android:layout_height="match_parent"
-        android:visibility="gone"
+        android:layout_height="match_parent"
         android:layout_below="@+id/vb"
-/>
+        android:visibility="gone" />
 
 
     <com.example.administrator.customview.View.CircleImageView
 
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:imageRes="@mipmap/ic_launcher"
         android:layout_below="@+id/vb"
+        android:visibility="gone"
+        app:imageRes="@mipmap/ic_launcher" />
+
+    <com.example.administrator.customview.View.AndroidLogoView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_below="@+id/vb"
+        android:visibility="gone" />
+
+
+    <com.example.administrator.customview.View.DynamicHeartView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+        android:visibility="gone"
+
+
         />
 
+    <com.example.administrator.customview.View.MatrixView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+        android:visibility="gone"
+        />
 
+    <com.example.administrator.customview.View.WaveView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+        android:visibility="gone"
+        />
+    <com.example.administrator.customview.View.BitmapCanvasView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+        android:visibility="gone"
+        />
+    <com.example.administrator.customview.View.XfermodeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
+        android:visibility="gone"
+        />
 
+    <com.example.administrator.customview.View.RippleView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/vb"
+        android:background="@color/colorAccent"
+       android:visibility="gone"
+        />
+  <com.example.administrator.customview.View.BitmapShaderView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vb"
 
-
-
+        />
 
 
 </RelativeLayout>

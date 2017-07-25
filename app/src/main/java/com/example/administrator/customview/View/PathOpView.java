@@ -169,5 +169,38 @@ public class PathOpView extends CustomView {
         canvas.drawPath(dst, mDeafultPaint);                        // 绘制 Path
 
 
+
+//
+//
+//
+//        /**几个判断方法*/
+//        public native boolean isEmpty();//判断该区域是否为空
+//        public native boolean isRect(); //是否是一个矩阵
+//        public native boolean isComplex();//是否是多个矩阵组合
+//
+//
+///**一系列的getBound方法，返回一个Region的边界*/
+//        public Rect getBounds()
+//        public boolean getBounds(Rect r)
+//        public Path getBoundaryPath()
+//        public boolean getBoundaryPath(Path path)
+//
+//
+///**一系列的判断是否包含某点 和是否相交*/
+//        public native boolean contains(int x, int y);//是否包含某点
+//        public boolean quickContains(Rect r)   //是否包含某矩形
+//        public native boolean quickContains(int left, int top, int right,
+//        int bottom) //是否没有包含某矩阵形
+//        public boolean quickReject(Rect r) //是否没和该矩形相交
+//        public native boolean quickReject(int left, int top, int right, int bottom); //是否没和该矩形相交
+//        public native boolean quickReject(Region rgn);  //是否没和该矩形相交
+//
+///**几个平移变换的方法*/
+//        public void translate(int dx, int dy)
+//        public native void translate(int dx, int dy, Region dst);
+//        public void scale(float scale) //hide
+//        public native void scale(float scale, Region dst);//hide
+//
+
     }
 }

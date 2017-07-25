@@ -50,7 +50,7 @@ public class PorterDuffView extends View {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
     }
-    private Bitmap drawRectBm(){
+    private Bitmap drawRectBm(){  //原本
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(BlueColor);
         paint.setStyle(Paint.Style.FILL);
