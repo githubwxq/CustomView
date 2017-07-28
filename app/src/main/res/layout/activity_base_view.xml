@@ -89,13 +89,13 @@
         android:visibility="gone" />
 
 
-    <com.example.administrator.customview.View.CircleImageView
+    <!--<com.example.administrator.customview.View.CircleImageView-->
 
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/vb"
-        android:visibility="gone"
-        app:imageRes="@mipmap/ic_launcher" />
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_below="@+id/vb"-->
+        <!--android:visibility="gone"-->
+        <!--app:imageRes="@mipmap/ic_launcher" />-->
 
     <com.example.administrator.customview.View.AndroidLogoView
 
