@@ -20,6 +20,7 @@
 package com.wxq.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextPaint;
@@ -58,9 +59,8 @@ public class CustomView extends View {
         this.defaultSize = defaultSize;
     }
 
-    public  int defaultSize=250; //默认当为wrapcontent的时候给的默认值
-    
-    
+    public int defaultSize = 250; //默认当为wrapcontent的时候给的默认值
+
 
     public CustomView(Context context) {
         this(context, null);
@@ -97,13 +97,11 @@ public class CustomView extends View {
     }
 
     /**
-     *
      * @param measureSpec
      * @param desired
      * @return
      */
-    private int resolveMeasured(int measureSpec, int desired)
-    {
+    private int resolveMeasured(int measureSpec, int desired) {
         int result = 0;
         int specSize = MeasureSpec.getSize(measureSpec);
         switch (MeasureSpec.getMode(measureSpec)) {
@@ -119,4 +117,14 @@ public class CustomView extends View {
         }
         return result;
     }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+    }
 }
+//                 1背景
+//                 2主体（onDraw()）
+//                 3子 View（dispatchDraw()）
+//                 4滑动边缘渐变和滑动条
+//                 5前景
