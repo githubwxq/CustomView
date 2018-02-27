@@ -30,44 +30,98 @@ public class CustomLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+
+//        //*********************************************************************//
+//        final int count = getChildCount();
+//        int childMeasureWidth = 0;
+//        int childMeasureHeight = 0;
+//        int layoutWidth = 0;    // 容器已经占据的宽度
+//        int layoutHeight = 0;   // 容器已经占据的高度  默认
+//        int maxChildHeight = 0; //一行中子控件最高的高度，用于决定下一行高度应该在目前基础上累加多少
+//        for (int i = 0; i < count; i++) {
+//            View childAt = getChildAt(i);
+//            childMeasureWidth = childAt.getMeasuredWidth();
+//            childMeasureHeight = childAt.getMeasuredHeight();
+//            //
+////            layoutWidth+=childMeasureWidth;//宽度累加
+//
+//
+//            if (layoutWidth + childMeasureWidth < getWidth()) {
+//                left = layoutWidth;
+//                right = left + childMeasureWidth;
+//                top = layoutHeight;
+//                bottom = top + childMeasureHeight;
+//            } else {
+//                //排满后换行
+//                layoutWidth = 0;
+//                layoutHeight += maxChildHeight;
+//                maxChildHeight = 0;
+//                left = layoutWidth;
+//                right = left + childMeasureWidth;
+//                top = layoutHeight;
+//                bottom = top + childMeasureHeight;
+//            }
+//
+//            layoutWidth += childMeasureWidth;  //宽度累加
+//            if (childMeasureHeight > maxChildHeight) {
+//                maxChildHeight = childMeasureHeight;
+//            }
+//
+//
+//            //确定子控件的位置，四个参数分别代表（左上右下）点的坐标值
+//            childAt.layout(left, top, right, bottom);
+//    }
+
+
+        //*********************************************************************//
+        //加入LayoutParams 布局位置重新设置
+
         final int count = getChildCount();
-        int childMeasureWidth = 0;
-        int childMeasureHeight = 0;
-        int layoutWidth = 0;    // 容器已经占据的宽度
-        int layoutHeight = 0;   // 容器已经占据的高度  默认
-        int maxChildHeight = 0; //一行中子控件最高的高度，用于决定下一行高度应该在目前基础上累加多少
+
+        int chilldMeasureWidth = 0;
+
+        int chilldMeasureHeight = 0;
+
+        CustomLayoutParams params = null;
+
         for (int i = 0; i < count; i++) {
-            View childAt = getChildAt(i);
-            childMeasureWidth = childAt.getMeasuredWidth();
-            childMeasureHeight = childAt.getMeasuredHeight();
-            //
-//            layoutWidth+=childMeasureWidth;//宽度累加
+            View child = getChildAt(i);
+            chilldMeasureWidth = child.getMeasuredWidth();
+            chilldMeasureHeight = child.getMeasuredHeight();
+            params = (CustomLayoutParams) child.getLayoutParams();
+            switch (params.defaultPosition) {
+                case CustomLayoutParams.POSITION_MIDDLE:
+                    left = (getWidth() - chilldMeasureWidth) / 2;
+                    top = (getHeight() - chilldMeasureHeight) / 2;
+                    break;
 
+                case CustomLayoutParams.POSITION_LEFT:
+                    left = 0 + params. leftMargin;
+                    top = 0 + params. topMargin;
 
-            if (layoutWidth + childMeasureWidth < getWidth()) {
-                left = layoutWidth;
-                right = left + childMeasureWidth;
-                top = layoutHeight;
-                bottom = top + childMeasureHeight;
-            } else {
-                //排满后换行
-                layoutWidth = 0;
-                layoutHeight += maxChildHeight;
-                maxChildHeight = 0;
-                left = layoutWidth;
-                right = left + childMeasureWidth;
-                top = layoutHeight;
-                bottom = top + childMeasureHeight;
+                    break;
+
+                case CustomLayoutParams.POSITION_RIGHT:
+                    left = getWidth()-chilldMeasureWidth - params.rightMargin;
+                    top = 0 + params. topMargin;
+                    break;
+
+                case CustomLayoutParams.POSITION_BOTTOM:
+                    left = 0 + params. leftMargin;
+                    top = getHeight()-chilldMeasureHeight-params.bottomMargin ;
+                    break;
+
+                case CustomLayoutParams.POSITION_RIGHTANDBOTTOM:
+                    left = getWidth()-chilldMeasureWidth - params.rightMargin;
+                    top = getHeight() - chilldMeasureHeight-params.bottomMargin;
+
+                    break;
+
+                default:
             }
 
-            layoutWidth += childMeasureWidth;  //宽度累加
-            if (childMeasureHeight > maxChildHeight) {
-                maxChildHeight = childMeasureHeight;
-            }
 
-
-            //确定子控件的位置，四个参数分别代表（左上右下）点的坐标值
-            childAt.layout(left, top, right, bottom);
+            child.layout(left, top, left + chilldMeasureWidth, top + chilldMeasureHeight);
 
 
         }
@@ -82,54 +136,63 @@ public class CustomLayout extends ViewGroup {
 //        measureChildren(widthMeasureSpec, heightMeasureSpec);
 //        //测量并保存layout的宽高(使用getDefaultSize时，wrap_content和match_perent都是填充屏幕) //wrap 得而外处理
 //        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
-//
-//
         //*********************************************************************//
         //加入布局后大小重新计算
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
         int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
         int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
-
         int layoutWidth = 0;
-
         int layoutHeight = 0;
-
         // 计算出所有的childView的宽和高
         measureChildren(widthMeasureSpec, heightMeasureSpec);
-
         int cWidth = 0;
         int cHeight = 0;
-
-
         int count = getChildCount();
-
+        for (int i = 0; i < count; i++) {
+            View childAt = getChildAt(i);
+            measureChildWithMargins(childAt, widthMeasureSpec, 0, heightMeasureSpec, 0);
+        }
+        CustomLayoutParams params = null;
 
         if (widthMode == MeasureSpec.EXACTLY) {
             //如果布局容器的宽度模式是确定的（具体的size或者match_parent），直接使用父窗体建议的宽度
             layoutWidth = sizeWidth;
         } else {
+//            、、位指定或者wrap_content我们都按照包裹内容去弄，宽度方向只要拿到说有控件中最大的最为布局宽度
             for (int i = 0; i < count; i++) {
                 View child = getChildAt(i);
-                cWidth = child.getWidth();
-                layoutWidth = cWidth > layoutWidth ? cWidth : layoutWidth;
+                cWidth = child.getMeasuredWidth();
+//                、、获取子控件对应的layoutparamers
+                params = (CustomLayoutParams) child.getLayoutParams();
+
+                int marginwith=cWidth+params.leftMargin+params.rightMargin;
+
+                layoutWidth = marginwith > layoutWidth ? marginwith : layoutWidth;
+
+
             }
         }
 
-
-//高度很宽度处理思想一样
+        //高度很宽度处理思想一样
         if (heightMode == MeasureSpec.EXACTLY) {
             layoutHeight = sizeHeight;
         } else {
             for (int i = 0; i < count; i++) {
                 View child = getChildAt(i);
                 cHeight = child.getMeasuredHeight();
-                layoutHeight = cHeight > layoutHeight ? cHeight : layoutHeight;
+                params = (CustomLayoutParams) child.getLayoutParams();
+
+                int marginheight=cHeight+params.topMargin+params.bottomMargin ;
+
+
+                layoutHeight = marginheight > layoutHeight ? marginheight : layoutHeight;
             }
         }
         // 测量并保存layout的宽高
         setMeasuredDimension(layoutWidth, layoutHeight);
+
+        //*********************************************************************//
 
     }
 
