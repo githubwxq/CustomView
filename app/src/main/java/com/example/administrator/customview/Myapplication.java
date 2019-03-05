@@ -17,6 +17,6 @@ public class Myapplication extends Application {
         super.onCreate();
         //初始化常用工具类
         Utils.init(this);
-        com.jingewenku.abrahamcaijin.commonutil.application.AppUtils.init(this);
+//        com.jingewenku.abrahamcaijin.commonutil.application.AppUtils.init(this);
     }
 }

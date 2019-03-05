@@ -80,11 +80,11 @@ public class PorterDuffView extends View {
         canvas.drawRect(recf,mPaint);
         mPaint.setColor(PinkColor);
         canvas.drawCircle(100,40,20,mPaint);
-        int sc = canvas.saveLayer(0, 0,mWith,mHeight, null, Canvas.MATRIX_SAVE_FLAG |
-                Canvas.CLIP_SAVE_FLAG |
-                Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
-                Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
-                Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+//        int sc = canvas.saveLayer(0, 0,mWith,mHeight, null, Canvas.MATRIX_SAVE_FLAG |
+//                Canvas.CLIP_SAVE_FLAG |
+//                Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
+//                Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
+//                Canvas.CLIP_TO_LAYER_SAVE_FLAG);
         int y = 180;
         int x = 50;
             for(PorterDuff.Mode mode : PorterDuff.Mode.values()){
@@ -101,6 +101,6 @@ public class PorterDuffView extends View {
             }
         mPaint.setXfermode(null);
         // 还原画布
-        canvas.restoreToCount(sc);
+//        canvas.restoreToCount(sc);
     }
 }

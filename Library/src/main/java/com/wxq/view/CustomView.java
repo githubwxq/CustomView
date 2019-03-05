@@ -122,6 +122,14 @@ public class CustomView extends View {
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
     }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+    }
+
+
+
 }
 //                 1背景
 //                 2主体（onDraw()）
